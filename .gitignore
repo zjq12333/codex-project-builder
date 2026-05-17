@@ -1,0 +1,5 @@
+﻿node_modules/
+.codeproject/
+__test_project__/
+*.log
+.DS_Store

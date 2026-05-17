@@ -1,0 +1,10 @@
+﻿{
+  "mcpServers": {
+    "project-builder": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["./mcp/server.js"],
+      "env": {}
+    }
+  }
+}
