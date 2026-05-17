@@ -1,4 +1,4 @@
-﻿# ARCHITECTURE - 技术方案
+# ARCHITECTURE - 技术方案
 
 ## 1. 推荐技术栈
 

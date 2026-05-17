@@ -1,4 +1,4 @@
-﻿{
+{
     "name":  "project-builder",
     "version":  "0.1.0",
     "description":  "13-stage software project lifecycle manager for zero-basis users. Tracks stages across sessions, validates deliverables, generates templates, and produces human-readable progress reports.",

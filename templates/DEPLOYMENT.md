@@ -1,4 +1,4 @@
-﻿# DEPLOYMENT - 部署文档
+# DEPLOYMENT - 部署文档
 
 ## 部署方式
 

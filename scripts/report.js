@@ -1,4 +1,4 @@
-﻿// report.js — Generate human-readable progress report
+// report.js — Generate human-readable progress report
 // Usage: node report.js <project-dir>
 
 const fs = require("fs");
@@ -38,7 +38,14 @@ if (!fs.existsSync(p)) {
   process.exit(1);
 }
 
-const meta = JSON.parse(fs.readFileSync(p, "utf-8"));
+let meta;
+try {
+  meta = JSON.parse(fs.readFileSync(p, "utf-8"));
+} catch (e) {
+  console.error("ERROR: Corrupted .codeproject/meta.json");
+  console.error(e.message.split("\n")[0]);
+  process.exit(1);
+}
 const completed = Object.values(meta.stages).filter(s => s.status === "completed").length;
 const total = 13;
 const pct = Math.round((completed / total) * 100);

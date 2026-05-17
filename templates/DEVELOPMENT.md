@@ -1,4 +1,4 @@
-﻿# DEVELOPMENT - 本地开发说明
+# DEVELOPMENT - 本地开发说明
 
 ## 环境要求
 

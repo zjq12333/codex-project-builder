@@ -1,4 +1,4 @@
-﻿---
+---
 name: project-builder
 description: 13-stage software project lifecycle manager. Use when the user wants to build a software application from scratch (从零开发/做软件/做应用/做项目), continues an existing project (继续做/往下做), checks progress (进度/到哪了), or asks to manage project phases. Triggered by Chinese phrases like 做个软件, 做个应用, 开发一个, 从零开始, 继续做, 往下做, 项目进度, 检查进度, 下一步.
 ---

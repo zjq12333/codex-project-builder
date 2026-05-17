@@ -1,4 +1,4 @@
-﻿# DATA MODEL - 数据模型
+# DATA MODEL - 数据模型
 
 ## 核心实体列表
 

@@ -1,4 +1,4 @@
-﻿# Project Builder · 项目构建器
+# Project Builder · 项目构建器
 
 > 13-stage software project lifecycle manager for zero-basis users.
 > 面向零基础用户的 13 阶段软件项目生命周期管理器。

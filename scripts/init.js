@@ -1,4 +1,4 @@
-﻿// init.js — Initialize a new project with .codeproject/meta.json and template docs
+// init.js — Initialize a new project with .codeproject/meta.json and template docs
 // Usage: node init.js <project-dir> <project-name>
 
 const fs = require("fs");

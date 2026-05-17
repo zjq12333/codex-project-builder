@@ -1,4 +1,4 @@
-﻿// validate.js — Stage acceptance checks
+// validate.js — Stage acceptance checks
 // Usage: node validate.js <project-dir> <stage-id>
 // NOTE: For structured output, prefer the MCP tool `stage_validate`.
 // This script is a CLI fallback and matches the MCP validation logic.

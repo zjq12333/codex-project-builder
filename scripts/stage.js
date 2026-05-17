@@ -1,4 +1,4 @@
-﻿// stage.js — Project stage state tracker
+// stage.js — Project stage state tracker
 // Usage:
 //   node stage.js status <project-dir>
 //   node stage.js start <project-dir> <stage-id>
@@ -34,7 +34,13 @@ function loadMeta(projectDir) {
     console.error("Run: node scripts/init.js <project-dir> <project-name>");
     process.exit(1);
   }
-  return JSON.parse(fs.readFileSync(p, "utf-8"));
+  try {
+    return JSON.parse(fs.readFileSync(p, "utf-8"));
+  } catch (e) {
+    console.error(`ERROR: Corrupted .codeproject/meta.json in ${projectDir}`);
+    console.error(e.message.split("\n")[0]);
+    process.exit(1);
+  }
 }
 
 function saveMeta(projectDir, meta) {
