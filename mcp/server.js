@@ -1,4 +1,4 @@
-﻿import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import fs from "fs";
@@ -133,7 +133,9 @@ function safeCall(fn, errorLabel) {
   try {
     return fn();
   } catch (e) {
-    return { content: [{ type: "text", text: JSON.stringify({ error: `${errorLabel}: ${e.message}` }) }] };
+    const label = errorLabel || "tool_error";
+    const msg = (e.message || "Unknown error").split("\n")[0].replace(/[A-Za-z]:\\[^\n\r,;\']*/g, "<path>");
+    return { content: [{ type: "text", text: JSON.stringify({ error: label + ": " + msg }) }] };
   }
 }
 

@@ -23,6 +23,13 @@ const cpDir = path.join(projectDir, ".codeproject");
 fs.mkdirSync(cpDir, { recursive: true });
 
 const now = new Date().toISOString();
+// Check for existing project
+if (fs.existsSync(path.join(cpDir, "meta.json"))) {
+  console.error("ERROR: .codeproject/meta.json already exists. Project already initialized.");
+  console.error("Use project_status to check current progress.");
+  process.exit(1);
+}
+
 const meta = {
   project_name: projectName,
   current_stage: "stage_1",
