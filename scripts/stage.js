@@ -47,7 +47,7 @@ function saveMeta(projectDir, meta) {
   meta.updated_at = new Date().toISOString();
   const p = metaPath(projectDir);
   fs.mkdirSync(path.dirname(p), { recursive: true });
-  fs.writeFileSync(p, JSON.stringify(meta, null, 2), "utf-8");
+  fs.writeFileSync(p, Buffer.from(JSON.stringify(meta, null, 2), "utf-8"));
 }
 
 function cmdStatus(projectDir) {

@@ -1,42 +1,42 @@
 {
-    "name":  "project-builder",
-    "version":  "0.1.0",
-    "description":  "13-stage software project lifecycle manager for zero-basis users. Tracks stages across sessions, validates deliverables, generates templates, and produces human-readable progress reports.",
-    "author":  {
-                   "name":  "Local",
-                   "email":  "local@example.com"
-               },
-    "homepage":  "https://github.com/local/project-builder",
-    "repository":  "https://github.com/local/project-builder",
-    "license":  "MIT",
-    "keywords":  [
-                     "project",
-                     "scaffold",
-                     "lifecycle",
-                     "prd",
-                     "mvp",
-                     "zero-basis"
-                 ],
-    "skills":  "./skills/",
-    "interface":  {
-                      "displayName":  "Project Builder",
-                      "shortDescription":  "从想法到可运行应用，13 阶段项目生命周期管理",
-                      "longDescription":  "Project Builder 帮助零基础用户从 0 到 1 开发软件应用。按 13 个阶段推进：PRD → 技术方案 → 数据模型 → API 设计 → 骨架 → 核心闭环 → 权限 → 执行器 → 日志 → 测试 → 前端 → 部署 → 产品化。每个阶段可运行、可测试、可验收，跨会话自动记住进度。",
-                      "developerName":  "Local",
-                      "category":  "Engineering",
-                      "capabilities":  [
-                                           "Write",
-                                           "Interactive"
-                                       ],
-                      "websiteURL":  "https://github.com/local/project-builder",
-                      "privacyPolicyURL":  "https://github.com/local/project-builder",
-                      "termsOfServiceURL":  "https://github.com/local/project-builder",
-                      "defaultPrompt":  [
-                                            "帮我从零做一个软件：【描述你的想法】",
-                                            "继续往下做",
-                                            "检查当前项目进度"
-                                        ],
-                      "brandColor":  "#7C3AED"
-                  },
-    "mcpServers":  "./.mcp.json"
+  "name": "project-builder",
+  "version": "0.1.0",
+  "description": "13-stage software project lifecycle manager for zero-basis users. Tracks stages across sessions, validates deliverables, generates templates, and produces human-readable progress reports.",
+  "author": {
+    "name": "Local",
+    "email": "local@example.com"
+  },
+  "homepage": "https://github.com/zjq12333/codex-project-builder",
+  "repository": "https://github.com/zjq12333/codex-project-builder",
+  "license": "MIT",
+  "keywords": [
+    "project",
+    "scaffold",
+    "lifecycle",
+    "prd",
+    "mvp",
+    "zero-basis"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Project Builder",
+    "shortDescription": "从想法到可运行应用，13 阶段项目生命周期管理",
+    "longDescription": "Project Builder 帮助零基础用户从 0 到 1 开发软件应用。按 13 个阶段推进：PRD → 技术方案 → 数据模型 → API 设计 → 骨架 → 核心闭环 → 权限 → 执行器 → 日志 → 测试 → 前端 → 部署 → 产品化。每个阶段可运行、可测试、可验收，跨会话自动记住进度。",
+    "developerName": "Local",
+    "category": "Engineering",
+    "capabilities": [
+      "Write",
+      "Interactive"
+    ],
+    "websiteURL": "https://github.com/zjq12333/codex-project-builder",
+    "privacyPolicyURL": "https://github.com/zjq12333/codex-project-builder",
+    "termsOfServiceURL": "https://github.com/zjq12333/codex-project-builder",
+    "defaultPrompt": [
+      "帮我从零做一个软件：【描述你的想法】",
+      "继续往下做",
+      "检查当前项目进度"
+    ],
+    "brandColor": "#7C3AED"
+  }
 }

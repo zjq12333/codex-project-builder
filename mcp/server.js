@@ -111,7 +111,7 @@ function saveMeta(projectDir, meta) {
   meta.updated_at = new Date().toISOString();
   const p = metaPath(projectDir);
   fs.mkdirSync(path.dirname(p), { recursive: true });
-  fs.writeFileSync(p, JSON.stringify(meta, null, 2), "utf-8");
+  fs.writeFileSync(p, Buffer.from(JSON.stringify(meta, null, 2), "utf-8"));
 }
 
 function buildDefaultMeta(projectName) {
@@ -151,7 +151,7 @@ server.tool(
   "初始化一个新项目。创建 .codeproject/meta.json 状态文件和所有模板文档（PRD.md 等）。",
   {
     project_dir: z.string().describe("项目目录的绝对路径"),
-    project_name: z.string().describe("项目名称"),
+    project_name: z.string().min(1, "项目名称不能为空").describe("项目名称"),
   },
   async ({ project_dir, project_name }) => safeCall(() => {
     // Ensure project directory exists
@@ -174,7 +174,7 @@ server.tool(
 
     const agentsPath = path.join(project_dir, "AGENTS.md");
     if (!fs.existsSync(agentsPath)) {
-      fs.writeFileSync(agentsPath, `# AI Development Agent Instructions\n\n项目: ${project_name}\n创建: ${meta.created_at}\n`, "utf-8");
+      fs.writeFileSync(agentsPath, Buffer.from(`# AI Development Agent Instructions\n\n项目: ${project_name}\n创建: ${meta.created_at}\n`, "utf-8"));
       created.push("AGENTS.md");
     }
 
@@ -355,5 +355,9 @@ server.tool(
 );
 
 // ── Start ──
+// Ensure UTF-8 I/O for cross-platform Unicode safety
+process.stdin.setEncoding("utf-8");
+if (process.stdout.setDefaultEncoding) process.stdout.setDefaultEncoding("utf-8");
+
 const transport = new StdioServerTransport();
 await server.connect(transport);
