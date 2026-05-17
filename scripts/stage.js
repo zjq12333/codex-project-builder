@@ -93,6 +93,10 @@ function cmdComplete(projectDir, stageId) {
     process.exit(1);
   }
   const info = STAGES[stageId];
+  if (meta.stages[stageId].status === "completed") {
+    console.log(`⚠️ ${info.num}. ${info.name} 已完成，跳过`);
+    return;
+  }
   meta.stages[stageId].status = "completed";
   meta.stages[stageId].completed_at = new Date().toISOString();
 
@@ -117,7 +121,7 @@ function cmdComplete(projectDir, stageId) {
 const args = process.argv.slice(2);
 const cmd = args[0];
 const projectDir = args[1];
-const stageId = args[2];
+const stageId = (args[2] || "").trim();
 
 if (!cmd || !projectDir) {
   console.log("Usage: node stage.js <status|start|complete> <project-dir> [stage-id]");

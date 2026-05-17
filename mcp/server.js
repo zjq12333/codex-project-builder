@@ -104,7 +104,11 @@ function metaPath(projectDir) {
 function loadMeta(projectDir) {
   const p = metaPath(projectDir);
   if (!fs.existsSync(p)) return null;
-  return JSON.parse(fs.readFileSync(p, "utf-8"));
+  try {
+    return JSON.parse(fs.readFileSync(p, "utf-8"));
+  } catch (e) {
+    return null;
+  }
 }
 
 function saveMeta(projectDir, meta) {
@@ -253,6 +257,9 @@ server.tool(
     }
 
     const info = STAGES[stage_id];
+    if (meta.stages[stage_id].status === "completed") {
+      return { content: [{ type: "text", text: JSON.stringify({ message: `${STAGES[stage_id].emoji} ${STAGES[stage_id].num}. ${STAGES[stage_id].name} 已完成，跳过` }) }] };
+    }
     meta.stages[stage_id].status = "completed";
     meta.stages[stage_id].completed_at = new Date().toISOString();
 
