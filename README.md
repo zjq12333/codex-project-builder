@@ -1,75 +1,57 @@
-# Project Builder · 项目构建器
+# Project Builder
 
-> 13-stage software project lifecycle manager for zero-basis users.
-> 面向零基础用户的 13 阶段软件项目生命周期管理器。
+`Project Builder` 是一个面向零基础用户的软件项目构建插件。它把“我想做一个软件”拆成 13 个明确阶段，让 AI 按阶段推进、记录进度、执行验收，并避免跳步骤或假装完成。
 
-[English](#english) | [中文](#中文)
+## 作用
 
----
+- 把产品想法拆成可执行的 13 个阶段
+- 为每个阶段提供固定文档模板
+- 记录项目当前进度，支持跨会话恢复
+- 在阶段结束前执行基本验收
+- 同时提供 `Skill` 触发方式和 `MCP` 工具调用方式
 
-## English
+## 适用场景
 
-### What It Does
+- 你想让 AI 从 0 到 1 帮你做一个软件
+- 你不想一次性生成一堆不可控代码
+- 你希望 AI 每一步都有阶段边界、文档产物和验收动作
+- 你需要一个适合 `Codex` / `Cursor` / `Claude Code` 的项目推进框架
 
-Project Builder turns "I want to build an app" into a working, tested, deployable product — through 13 guided stages. It tracks progress across sessions, validates every stage, and never lets the AI skip steps.
+## 13 个阶段
 
-### Who It's For
+1. `PRD`：产品定义
+2. `Architecture`：技术方案
+3. `Data Model`：数据模型
+4. `API Design`：接口设计
+5. `Skeleton`：项目骨架
+6. `Core Loop`：核心闭环
+7. `Auth`：权限与认证
+8. `Real Executor`：真实执行器
+9. `Observability`：日志与可观测性
+10. `Tests`：测试补齐
+11. `Frontend MVP`：前端最小可用版本
+12. `Deployment`：部署准备
+13. `Polish`：产品化优化
 
-- People who have **never coded** but want to build software with AI
-- AI coding agents (Codex, Cursor, Claude Code) that need structured project discipline
-- Anyone who wants reproducible, testable, incremental software delivery
+## 目录结构
 
-### The 13 Stages
-
-| # | Stage | What You Get |
-|---|-------|-------------|
-| 1 | PRD | Product requirements doc |
-| 2 | Architecture | Tech stack & system design |
-| 3 | Data Model | Entities, fields, relationships |
-| 4 | API Design | Endpoints, request/response specs |
-| 5 | Skeleton | Runnable project scaffold |
-| 6 | Core Loop | Create → Execute → Check → Result |
-| 7 | Auth | Login, permissions, access control |
-| 8 | Real Executor | Replace mocks with real business logic |
-| 9 | Observability | Logging, tracing, audit |
-| 10 | Tests | Unit, API, integration, edge cases |
-| 11 | Frontend | Minimal usable UI |
-| 12 | Deployment | Docker, env vars, health checks |
-| 13 | Polish | Error messages, UX, docs, perf |
-
-### How to Use
-
-1. **Start a new project:** Tell your AI agent:
-   > "我要做一个软件：【describe your idea】"
-
-2. **Continue:** Say "继续" or "往下做" — the plugin remembers where you left off.
-
-3. **Check progress:** Say "项目进度" or the AI auto-checks at session start.
-
-### What's Inside
-
-- **Skill** (`SKILL.md`) — 13-stage behavioral rules for the AI agent
-- **MCP Server** — 5 tools for init, status, validation, stage management, and reporting
-- **CLI Scripts** — Fallback `node scripts/*.js` commands
-- **Templates** — 7 pre-built document templates (PRD, ARCH, API, DATA_MODEL, etc.)
-
-### Architecture
-
-```
+```text
 project-builder/
-├── .codex-plugin/plugin.json    # Plugin manifest
-├── .mcp.json                    # MCP server config (stdio)
-├── skills/project-builder/
-│   └── SKILL.md                 # AI agent behavior rules
+├── .codex-plugin/
+│   └── plugin.json
+├── .mcp.json
 ├── mcp/
-│   ├── server.js                # MCP server (5 tools)
-│   └── package.json             # @modelcontextprotocol/sdk
-├── scripts/                     # CLI fallback
-│   ├── init.js                  # Project initialization
-│   ├── stage.js                 # Stage state tracker
-│   ├── validate.js              # Acceptance checks
-│   └── report.js                # Progress report
-└── templates/                   # Document templates
+│   ├── package.json
+│   └── server.js
+├── skills/
+│   └── project-builder/
+│       └── SKILL.md
+├── scripts/
+│   ├── init.js
+│   ├── stage.js
+│   ├── validate.js
+│   └── report.js
+└── templates/
     ├── PRD.md
     ├── ARCHITECTURE.md
     ├── API.md
@@ -79,107 +61,87 @@ project-builder/
     └── DEPLOYMENT.md
 ```
 
-### MCP Tools
+## 调用方式
 
-| Tool | Purpose |
-|------|---------|
-| `project_init` | Initialize project + generate templates |
-| `project_status` | Read current stage and full progress |
-| `stage_complete` | Mark stage done, auto-advance |
-| `stage_validate` | Run acceptance checks |
-| `project_report` | Human-readable progress report |
+### 1. 作为插件使用
 
-### Requirements
+启用后，用户可以直接对 AI 说：
 
-- Node.js >= 18
-- Codex desktop app (for MCP integration)
-- Dependencies auto-installed via `npm install` in `mcp/`
+- `从零做一个软件：……`
+- `继续做`
+- `检查项目进度`
 
----
+这是最自然的调用方式，适合实际使用。
 
-## 中文
+### 2. 作为 MCP 工具调用
 
-### 它能做什么
+插件暴露了 5 个 MCP 工具：
 
-Project Builder 把"我想做一个软件"变成可运行、可测试、可部署的产品——通过 13 个有引导的阶段推进。跨会话自动记住进度，每个阶段必须验收通过才能进入下一步，AI 不能跳阶段、不能假装完成。
+- `project_init`
+- `project_status`
+- `stage_complete`
+- `stage_validate`
+- `project_report`
 
-### 适合谁
+适合代理、脚本或内部工具链直接调用。
 
-- **从未写过代码**但想用 AI 做软件的人
-- 需要结构化项目纪律的 AI 编程助手（Codex、Cursor、Claude Code）
-- 任何想要可复现、可测试、渐进式软件交付的人
+### 3. 作为脚本调用
 
-### 13 个阶段
+也可以直接运行本地脚本：
 
-| 阶段 | 名称 | 产出 |
-|------|------|------|
-| 1 | 产品定义 | PRD.md — 用户、场景、MVP 范围 |
-| 2 | 技术方案 | ARCHITECTURE.md — 技术栈、模块、数据流 |
-| 3 | 数据模型 | DATA_MODEL.md — 实体、字段、关系、状态机 |
-| 4 | API 设计 | API.md — 接口、参数、响应、错误码 |
-| 5 | 项目骨架 | 可启动的项目框架 + 健康检查 |
-| 6 | 核心闭环 | 创建→触发→状态→结果→失败处理 |
-| 7 | 权限认证 | 登录、资源归属、越权测试 |
-| 8 | 真实执行器 | 替换 mock 为真实业务逻辑 |
-| 9 | 可观测性 | 日志、追踪、审计 |
-| 10 | 测试补齐 | 单元/API/集成/边界测试 |
-| 11 | 前端 MVP | 最小可用界面 |
-| 12 | 部署准备 | Docker、环境变量、健康检查 |
-| 13 | 产品优化 | 错误提示、体验、文档、性能 |
-
-### 怎么用
-
-1. **开始新项目：** 对 AI 说：
-   > "我要做一个软件：【描述你的想法】"
-
-2. **继续做：** 说"继续"或"往下做"——插件自动从上次断点继续。
-
-3. **查看进度：** 说"项目进度"，或 AI 在每次对话开始时自动检查。
-
-### 技术架构
-
-```
-project-builder/
-├── .codex-plugin/plugin.json    # 插件清单
-├── .mcp.json                    # MCP 配置 (stdio)
-├── skills/project-builder/
-│   └── SKILL.md                 # AI 行为规则
-├── mcp/
-│   ├── server.js                # MCP 服务 (5 个工具)
-│   └── package.json             # @modelcontextprotocol/sdk
-├── scripts/                     # CLI 备选
-│   ├── init.js                  # 项目初始化
-│   ├── stage.js                 # 阶段状态跟踪
-│   ├── validate.js              # 验收检查
-│   └── report.js                # 进度报告
-└── templates/                   # 文档模板
-    ├── PRD.md
-    ├── ARCHITECTURE.md
-    ├── API.md
-    ├── DATA_MODEL.md
-    ├── DEVELOPMENT.md
-    ├── TESTING.md
-    └── DEPLOYMENT.md
+```powershell
+node scripts\init.js <project-dir> <project-name>
+node scripts\stage.js status <project-dir>
+node scripts\stage.js complete <project-dir> <stage-id>
+node scripts\validate.js <project-dir> <stage-id>
+node scripts\report.js <project-dir>
 ```
 
-### MCP 工具
+## MCP 工具说明
 
-| 工具 | 作用 |
-|------|------|
-| `project_init` | 初始化项目 + 生成模板文档 |
-| `project_status` | 查看当前阶段和全部进度 |
-| `stage_complete` | 标记阶段完成，自动推进 |
-| `stage_validate` | 运行验收检查 |
-| `project_report` | 生成人类可读进度报告 |
+### `project_init`
 
-### 环境要求
+初始化项目，创建：
 
-- Node.js >= 18
-- Codex 桌面应用（MCP 集成需要）
-- 依赖通过 `mcp/` 下的 `npm install` 自动安装
+- `.codeproject/meta.json`
+- `AGENTS.md`
+- 所有阶段模板文档
 
----
+### `project_status`
 
-## License
+返回当前阶段、阶段完成情况和下一步。
 
-MIT
+### `stage_complete`
+
+标记某一阶段完成，并自动推进到下一阶段。
+
+### `stage_validate`
+
+执行阶段验收，返回当前阶段存在的问题。
+
+### `project_report`
+
+生成人类可读的阶段进度报告。
+
+## 依赖
+
+- `Node.js >= 18`
+- `@modelcontextprotocol/sdk`
+- `zod`
+
+`mcp/` 目录下运行：
+
+```powershell
+npm install
+```
+
+## 当前仓库
+
+- GitHub: `https://github.com/zjq12333/codex-project-builder`
+
+## 说明
+
+- 这是一个插件，不只是单独的 `Skill`
+- 插件内部同时包含 `Skill` 和 `MCP`
+- 用户侧通常通过自然语言触发
+- 工具侧通常通过 `MCP tools` 调用
